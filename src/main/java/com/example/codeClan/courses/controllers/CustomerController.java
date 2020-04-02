@@ -36,5 +36,36 @@ public class CustomerController {
         return new ResponseEntity<>(customerRepository.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<Customer>> getCustomer(@PathVariable Long id){
+        return new ResponseEntity<>(customerRepository.findById(id), HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity createCustomer(@RequestBody Customer customer){
+        customerRepository.save(customer);
+        return new ResponseEntity<>(customer, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Optional<Customer>> deleteCustomer(@PathVariable Long id){
+        customerRepository.deleteById(id);
+        return new ResponseEntity(customerRepository.findAll(), HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Optional<Customer>> updateCustomer(@RequestBody Customer updatedCustomer, @PathVariable Long id){
+        return new ResponseEntity<>(customerRepository.findById(id).map(customer -> {
+            customer.setName(updatedCustomer.getName());
+            customer.setLocation(updatedCustomer.getLocation());
+            customer.setAge(updatedCustomer.getAge());
+            customer.setBookings(updatedCustomer.getBookings());
+            return customerRepository.save(customer);
+        }), HttpStatus.OK);
+    }
+
+
+
+
 
 }

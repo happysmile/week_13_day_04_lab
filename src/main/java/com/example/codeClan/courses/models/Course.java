@@ -1,5 +1,7 @@
 package com.example.codeClan.courses.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,7 @@ public class Course {
     @Column(name = "rating")
     private int rating;
 
+    @JsonIgnoreProperties(value="course")
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
     private List<Booking> bookings;
 
