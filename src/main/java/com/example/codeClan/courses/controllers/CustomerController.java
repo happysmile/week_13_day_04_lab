@@ -25,10 +25,10 @@ public class CustomerController {
             @RequestParam(required = false, name="minimumAge") Integer minimumAge
     ){
         if(courseId != null && location != null && minimumAge != null){
-            return new ResponseEntity<>( customerRepository.findCustomerByBookingsCourseIdAndLocationAndAgeGreaterThanEqual(courseId, location, minimumAge),HttpStatus.OK );
+            return new ResponseEntity<>( customerRepository.findCustomerByBookingsCourseIdAndLocationIgnoreCaseAndAgeGreaterThanEqual(courseId, location, minimumAge),HttpStatus.OK );
         }
         if(courseId != null && location != null){
-            return new ResponseEntity<>(customerRepository.findCustomerByBookingsCourseIdAndLocation(courseId, location), HttpStatus.OK);
+            return new ResponseEntity<>(customerRepository.findCustomerByBookingsCourseIdAndLocationIgnoreCase(courseId, location), HttpStatus.OK);
         }
         if(courseId != null){
             return new ResponseEntity<>(customerRepository.findCustomerByBookingsCourseId(courseId), HttpStatus.OK);
